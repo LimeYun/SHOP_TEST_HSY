@@ -15,6 +15,7 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int insert(User user) {
+		return 0;
 		
 	}
 	
@@ -26,6 +27,7 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public User login(String id, String pw) {
+		return null;
 		
 	}
 	
@@ -39,6 +41,7 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public User getUserById(String id) {
+		return null;
 		
 	}
 	
@@ -49,6 +52,7 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int update(User user) {
+		return 0;
 		
 	}
 
@@ -59,6 +63,7 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int delete(String id) {
+		return 0;
 		
 	}
 	
