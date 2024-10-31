@@ -68,16 +68,16 @@ public class LoginFilter extends HttpFilter implements Filter {
 		}
 		// 자동 로그인 & 토큰 ok
 		if( rememberMe != null && token != null ) {
-			PersistentLogin plogin = userService.selectToken(token);
+			PersistentLogin plogin = userService.selectTokenByToken(token);
 			
 			// 토큰이 존재하고 유효(만료시간)한지 확인
-//			if( plogin != null) {
-//				String userId = plogin.getUserId();
-//				loginUser = userService.select(userId); 
-//				// 로그인 처리
-//				session.setAttribute( "loginID" ,  loginUser.getUserId() );
+			if( plogin != null) {
+				loginID = plogin.getUserId();
+//				loginUser = userService.selectToken(); 
+				// 로그인 처리
+				session.setAttribute( "loginID" ,  loginID);
 //				session.setAttribute( "loginUser" , loginUser );
-//			}
+			}
 		}
 		chain.doFilter(request, response);
 	}

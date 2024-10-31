@@ -27,7 +27,7 @@
 	// 쿠키 전달
 	
 	// 로그인 성공 페이지로 이동
-	response.sendRedirect("complete.jsp?msg=0");		
+	response.sendRedirect("/user/complete.jsp?msg=0");		
 
 %>
 

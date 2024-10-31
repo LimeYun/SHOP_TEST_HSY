@@ -21,6 +21,8 @@
 			response.sendRedirect(root + "/user/logged.jsp");
 		}
 		
+		String rememberId = request.getParameter("remember-id");
+		
 		// 아이디 저장 쿠키 가져오기
 		
 		

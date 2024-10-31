@@ -45,7 +45,7 @@ public class EncodingFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		System.out.println("인코딩 필터 : encoding");
+		System.out.println("인코딩 필터 : " + encoding);
 		request.setCharacterEncoding(encoding); // 문자열 x 
 		response.setCharacterEncoding(encoding);
 		chain.doFilter(request, response);
