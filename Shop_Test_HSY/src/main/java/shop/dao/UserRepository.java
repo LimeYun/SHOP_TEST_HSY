@@ -121,9 +121,7 @@ public class UserRepository extends JDBConnection {
 		int result = 0;			// 결과 : 적용된 데이터 개수
 		
 		String sql = " UPDATE user "
-				   + "    SET id = ? "
-				   + "		 ,password = ? "
-				   + "		 ,name = ? "
+				   + "	  SET name = ? "
 				   + "		 ,gender = ? "
 				   + "		 ,birth = ? "
 				   + "		 ,mail = ? "
@@ -132,14 +130,13 @@ public class UserRepository extends JDBConnection {
 				   + " WHERE id = ? ";
 		try {
 			psmt = con.prepareStatement(sql);			
-			psmt.setString(1, user.getId());
-			psmt.setString(2, user.getPassword());
-			psmt.setString(3, user.getName());
-			psmt.setString(4, user.getGender());
-			psmt.setString(5, user.getBirth());
-			psmt.setString(6, user.getMail());
-			psmt.setString(7, user.getPhone());
-			psmt.setString(8, user.getAddress());
+			psmt.setString(1, user.getName());
+			psmt.setString(2, user.getGender());
+			psmt.setString(3, user.getBirth());
+			psmt.setString(4, user.getMail());
+			psmt.setString(5, user.getPhone());
+			psmt.setString(6, user.getAddress());
+			psmt.setString(7, user.getId());
 			result = psmt.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("회원 수정 예외 발생");

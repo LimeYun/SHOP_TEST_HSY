@@ -92,7 +92,7 @@ public class OrderRepository extends JDBConnection {
 		  		+ ",io.amount "
 		  		+ "FROM `order` o JOIN product_io io ON o.order_no = io.order_no"
 		  		+ "JOIN product p ON io.product_id = p.product_id"
-		  		+ "WHERE o.user_id = 'joeun'";
+		  		+ "WHERE o.user_id = ? ";
 		 
 		Product product = null;
 		try {

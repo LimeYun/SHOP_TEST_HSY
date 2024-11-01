@@ -4,56 +4,31 @@
 function checkJoin() {
 	let form = document.joinForm
 		
-	let id = form.id.value
-	let pw = form.pw.value
+	let id = form.id
+	let pw = form.pw
+	let pwConfirm = form.pw_confirm
+	let name = form.name
+	
+	let msg = ''
 	
 	
-	// 1. 아이디는 필수값, 6~20자 이내
-	// 아이디 입력여부 검증
-	if( id == "" ) {
-		alert('아이디를 입력해주세요')
-		form.id.focus()			// id input 태그에 포커스
+	let idCheck = /^[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣][a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]+$/
+	msg = '아이디는 영문자 또는 한글로 시작합니다.'
+	if (!check(idCheck, id, msg)) return false
+	
+	let pwCheck = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=]).{6,}$/
+	msg = '비밀번호는 특수문자가 1개 이상 포함, 글자수가 6자 이상이어야 합니다.'
+	if (!check(pwCheck, pw, msg)) return false
+	
+	if (pw.value != pwConfirm.value) {
+		alert('비밀번호가 일치하지 않습니다.')
 		return false
-	}
+	} 
 	
-	// 아이디 글자 수 검증
-	if( id.length < 6 || id.length > 20 ) {
-		alert('아이디는 6~20자 이내로 입력 가능합니다.')
-		form.id.select()		// id 입력 값을 선택
-		return false
-	}
-	// 2. 비밀번호는 필수값, 6자 이상
-	// 비밀번호 입력여부 검증
-	if( pw == "" ) {
-		alert('비밀번호를 입력해주세요')
-		form.pw.focus()			// id input 태그에 포커스
-		return false
-	}
+	let nameCheck = /^[가-힣]{2,}$/
+	msg = '이름은 한글만 입력 가능합니다.'
+	if (!check(nameCheck, name, msg)) return false
 	
-	// 비밀번호 글자 수 검증
-	if( pw.length < 6 ) {
-		alert('비밀번호는 6자 이상으로 입력해야합니다.')
-		form.id.select()		// id 입력 값을 선택
-		return false
-	}
-	
-	
-	// 3. 이름은 필수값, 첫글자는 숫자로 사용 불가
-	let name = form.name.value
-	
-	if( name == "" ) {
-		alert('이름을 입력해주세요')
-		form.name.focus()
-		return false
-	}
-	
-	// isNaN() : 숫자가 아니면 true
-	if( !isNaN( name.substr(0, 1) ) ) {
-		alert('이름은 숫자로 시작할 수 없습니다.')
-		form.name.select()
-		return false
-	}
-
 	return true
 }
 

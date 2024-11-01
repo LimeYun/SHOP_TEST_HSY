@@ -8,11 +8,11 @@
     
 <%
 	String id = request.getParameter("id");
-	String password = request.getParameter("password");
+	String password = request.getParameter("pw");
 	String name = request.getParameter("name");
 	String gender = request.getParameter("gender");
-	String birth = request.getParameter("birth");
-	String mail = request.getParameter("mail");
+	String birth = request.getParameter("year") + "-" + request.getParameter("month") + "-" + request.getParameter("day");
+	String mail = request.getParameter("mail1") + "@" + request.getParameter("mail2");
 	String phone = request.getParameter("phone");
 	String address = request.getParameter("address");
 
@@ -26,12 +26,17 @@
 	user.setPhone(phone);
 	user.setAddress(address);
 	
-	session.setAttribute("user", user);
-	
 	String root = request.getContextPath();
 	
-	String msg = "1";
-	response.sendRedirect(root + "/user/complete.jsp?msg=" + msg);
+	UserRepository userRepository = new UserRepository();
+	int msg = userRepository.insert(user);
+	
+	if (msg > 0){		
+		response.sendRedirect(root + "/user/complete.jsp?msg=1");
+	}
+	else {
+		response.sendRedirect(root + "/user/join.jsp");
+	}
 	
 %>
     

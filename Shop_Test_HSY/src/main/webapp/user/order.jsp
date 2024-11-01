@@ -15,13 +15,23 @@
 </head>
 <body>   
 	<% 
-
+	   String root = request.getContextPath();
+	   String loginId = (String) session.getAttribute("loginId");
+	   String orderPhone = request.getParameter("phone");
+	   String orderPassword = request.getParameter("orderPw");
+	
+	   List<Product> orderList = new ArrayList<>();
+	   int orderCount = 0;
 		// ...
 	
 	
 		// 주문 내역 목록을 세션에서 가져오기
-		
 		// 회원인 경우
+		if ( loginId != null ) {
+			OrderRepository orderRepository = new OrderRepository();
+			orderList = orderRepository.list(loginId);
+			orderCount = orderList.size();
+		}
 		
 		
 	%>
@@ -33,7 +43,7 @@
 			<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
 			    <ul class="nav nav-pills flex-column mb-auto">
 			      <!-- 로그인 시 -->
-			      <% if( login ) { %>
+			      <% if( loginId != null) { %>
 			      <li class="nav-item">
 			        <a href="<%= root %>/user/index.jsp" class="nav-link link-body-emphasis">
 			          마이 페이지
@@ -60,7 +70,7 @@
 			<div class="px-4 py-3 my-3 text-center">
 				<h1 class="display-5 fw-bold text-body-emphasis">주문 내역</h1>
 				<div class="col-lg-6 mx-auto">
-					<% if( !login ) { %>	
+					<% if( loginId == null ) { %>	
 						<p class="lead mb-4">비회원 주문하신 경우, 전화번호와 주문 비밀번호를 입력해주세요.</p>
 					<% } %>
 				</div>
@@ -69,7 +79,7 @@
 			<!-- 주문 내역 영역 -->
 			<div class="container shop m-auto mb-5">
 					<form action="<%= root %>/user/order_pro.jsp" method="post">
-					<% if( !login ) { %>
+					<% if( loginId == null ) { %>
 						<div class="mb-5">
 							<table class="table">
 								<tr>
@@ -91,7 +101,7 @@
 						</div>
 					<% } %>
 					</form>
-				<% if( login || ( orderPhone != null && !orderPhone.isEmpty() ) ) { %>
+				<% if( loginId != null || ( orderPhone != null && !orderPhone.isEmpty() ) ) { %>
 				<!-- 주문 내역 목록 -->
 				<table class="table table-striped table-hover table-bordered text-center align-middle">
 					<thead>

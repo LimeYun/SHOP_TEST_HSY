@@ -24,7 +24,7 @@
 		<h2 class="text-body-emphasis">
 			<c:set var="msg" value="${param.msg}"></c:set>
 			<c:choose>
-				<c:when test="${msg == '0'}"></c:when>
+				<c:when test="${sessionScope.userId}">님 환영합니다.</c:when>
 				<c:when test="${msg == '1'}">회원 가입이 완료되었습니다.</c:when>
 				<c:when test="${msg == '2'}">회원 정보가 수정되었습니다.</c:when>
 				<c:when test="${msg == '3'}">회원 탈퇴가 완료되었습니다.</c:when>

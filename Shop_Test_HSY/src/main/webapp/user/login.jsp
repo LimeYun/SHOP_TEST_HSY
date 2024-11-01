@@ -24,7 +24,20 @@
 		String rememberId = request.getParameter("remember-id");
 		
 		// 아이디 저장 쿠키 가져오기
-		
+		String userId= "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				String cookieName = cookie.getName();
+				String cookieValue = URLDecoder.decode(cookie.getValue(), "UTF-8");
+				switch(cookieName) {
+				case "userId" : loginId= cookieValue; break;
+				case "rememberId" : rememberId = cookieValue; break;
+				}
+			}
+		}
+		pageContext.setAttribute("userId", loginId);
+		pageContext.setAttribute("rememberId", rememberId);
 		
 	%>
 	<jsp:include page="/layout/header.jsp" />
@@ -78,7 +91,8 @@
 	    </p>
 	    
 	    <div class="d-grid gap-2">
-		    <button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
+		    <!-- <button class="btn btn-primary w-100 py-2" type="submit">로그인</button> -->
+		    <input type="submit" class="btn btn-primary w-100 py-2" value="로그인" />
 		    <a href="<%= root %>/user/join.jsp" class="btn btn-success w-100 py-2">회원가입</a>
 	    </div>
 	  </form>

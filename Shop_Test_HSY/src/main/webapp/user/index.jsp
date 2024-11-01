@@ -10,6 +10,10 @@
 	<jsp:include page="/layout/meta.jsp" /> <jsp:include page="/layout/link.jsp" />
 </head>
 <body>   
+	<% 
+	   String root = request.getContextPath();
+	   String loginId = (String) session.getAttribute("loginId");
+	%>
 	
 	<jsp:include page="/layout/header.jsp" />
 	
@@ -18,9 +22,17 @@
 			<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
 			    <ul class="nav nav-pills flex-column mb-auto">
 			      <!-- 로그인 시 -->
-			      <% if( login ) { %>
-			      	
-			      	
+			      <% if( loginId != null ) { %>
+			      	 <li class="nav-item">
+			        <a href="<%= root %>/user/index.jsp" class="nav-link active" aria-current="page">
+			          마이 페이지
+			        </a>
+			      </li>
+			      <li class="nav-item">
+			        <a href="<%= root %>/user/update.jsp" class="nav-link link-body-emphasis">
+			          회원정보 수정
+			        </a>
+			      </li>
 			      <% } %>
 			      <li>
 			        <a href="<%= root %>/user/order.jsp" class="nav-link link-body-emphasis">
