@@ -21,22 +21,21 @@
 			response.sendRedirect(root + "/user/logged.jsp");
 		}
 		
-		String rememberId = request.getParameter("remember-id");
 		
 		// 아이디 저장 쿠키 가져오기
-		String userId= "";
+		String rememberId= "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				String cookieName = cookie.getName();
 				String cookieValue = URLDecoder.decode(cookie.getValue(), "UTF-8");
 				switch(cookieName) {
-				case "userId" : loginId= cookieValue; break;
+				case "loginId" : loginId= cookieValue; break;
 				case "rememberId" : rememberId = cookieValue; break;
 				}
 			}
 		}
-		pageContext.setAttribute("userId", loginId);
+		pageContext.setAttribute("loginId", loginId);
 		pageContext.setAttribute("rememberId", rememberId);
 		
 	%>

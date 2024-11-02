@@ -18,20 +18,21 @@
 	
 	// 로그인 실패
 	if (loginUser == null) {
-		response.sendRedirect(root + "/user/login.jsp?error=0");
+		response.sendRedirect(root + "/user/login.jsp");
 		return;
 	}
+	
+	String rememberId 		= request.getParameter("remember-id");
+	Cookie cookieRememberId = new Cookie("rememberId","");
+	Cookie cookieUserId		= new Cookie("loginId","");
+	
 	// 로그인 성공
 	// - 세션에 아이디 등록
 	if (loginUser != null) {
 		// 세션에 사용자 정보 등록
 		session.setAttribute("loginId", loginUser.getId());
-		session.setAttribute("loginUser", loginUser);
 	}
 	// 아이디 저장
-	String rememberId 		= request.getParameter("remember-id");
-	Cookie cookieRememberId = new Cookie("rememberId","");
-	Cookie cookieUserId		= new Cookie("userId","");
 	
 	
 	if (rememberId != null && rememberId.equals("on")) {
@@ -40,12 +41,12 @@
 		cookieUserId.setValue(URLEncoder.encode(id,"UTF-8"));
 	}
 	// 아이디 저장 체크 해제 시
-	else {
+/* 	else {
 		// 쿠키 삭제 - 쿠키 유효시간을 0으로 하고 응답
 		cookieRememberId.setMaxAge(0);
 		cookieUserId.setMaxAge(0);
 	}
-	
+ */	
 	// 자동 로그인
 	String rememberMe = request.getParameter("remember-me");
 	Cookie cookieRememberMe = new Cookie("rememberMe", "");
@@ -60,14 +61,14 @@
 	if (rememberMe != null && rememberMe.equals("on")) {
 		// 자동 로그인 체크 시
 		// - 토큰 발행
-		String refreshToken = userDAO.refreshToken(id);
-		String token = null;
-		if (refreshToken != null) {
-			token = refreshToken;
-		}
+		String refreshToken = userDAO.refreshToken(loginUser.getId());
+// 		String token = null;
+// 		if (refreshToken != null) {
+// 			token = refreshToken;
+// 		}
 		// - 쿠키 생성
 		cookieRememberMe.setValue(URLEncoder.encode(rememberMe, "UTF-8"));
-		cookieToken.setValue(URLEncoder.encode(token, "UTF-8"));
+		cookieToken.setValue(URLEncoder.encode(refreshToken, "UTF-8"));
 	}
 	else {
 		// 자동 로그인 미체크 시
