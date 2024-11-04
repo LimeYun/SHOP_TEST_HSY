@@ -73,9 +73,9 @@ public class LoginFilter extends HttpFilter implements Filter {
 			// 토큰이 존재하고 유효(만료시간)한지 확인
 			if( plogin != null) {
 				loginID = plogin.getUserId();
-//				loginUser = userService.selectToken(); 
+//				loginUser = userService.selectTokenByToken(token); 
 				// 로그인 처리
-				session.setAttribute( "loginID" ,  loginID);
+				session.setAttribute( "loginId" ,  loginID);
 //				session.setAttribute( "loginUser" , loginUser );
 			}
 		}

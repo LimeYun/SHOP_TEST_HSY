@@ -12,7 +12,7 @@
 	String loginId = (String) session.getAttribute("loginId");
 	String keyword = request.getParameter("keyword");
 	keyword = keyword == null ? "" : keyword;
-	
+	System.out.println("아이디는 : " + loginId);
 %>
 <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">

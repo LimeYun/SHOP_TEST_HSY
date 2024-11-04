@@ -12,7 +12,19 @@
 	<jsp:include page="/layout/link.jsp" />
 </head>
 <body>   
-	<% String root = request.getContextPath(); %>
+	<% 
+		String root = request.getContextPath();
+	
+		String productId = request.getParameter("id");
+		
+		ProductRepository productRepository = new ProductRepository();
+		Product product = null;
+		
+		if (productId != null) {
+			product = productRepository.getProductById(productId);
+		}
+		
+	%>
 	
 	<jsp:include page="/layout/header.jsp" />
 	<div class="px-4 py-5 my-5 text-center">
@@ -26,9 +38,8 @@
 	<div class="container shop">
 		<!-- [NEW] enctype 추가 -->
 		<form name="product" action="./update_pro.jsp" onsubmit="return checkProduct()" method="post" enctype="multipart/form-data">
-			
 			<div class="input-group mb-3 row">
-				<img src="img?id=P100001" class="w-100 p-2" />
+				<img src="<%= root %>/shop/img?id=<%= product.getProductId() %>" class="w-100 p-2" />
 			</div>
 			
 				
@@ -39,40 +50,40 @@
 		
 			<div class="input-group mb-3 row">
 				<label class="input-group-text col-md-2" id="">상품 코드</label>
-				<input type="text" class="form-control col-md-10" name="productId" 
-						value="P100001" readonly>
+				<input type="text" class="form-control col-md-10" name="id" 
+						value="<%= product.getProductId() %>" readonly>
 			</div>
 			
 			<div class="input-group mb-3 row">
 				<label class="input-group-text col-md-2" id="">상품명</label>
 				<input type="text" class="form-control col-md-10" name="name"
-						value="자바 프로그래밍" >
+						value="<%= product.getName() %>" >
 			</div>
 			
 			<div class="input-group mb-3 row">
 				<label class="input-group-text col-md-2" id="">가격</label>
 				<input type="number" class="form-control col-md-10" name="unitPrice"
-						value="50000" >
+						value="<%= product.getUnitPrice() %>" >
 			</div>
 			<div class="input-group mb-3 row">
 				<label class="input-group-text w-100" id="">상세 정보</label>
 				<textarea class="form-control" name="description" style="height: 200px !important;"
-						>안녕하세요 자바프로그래밍 강의입니다.</textarea>
+						><%= product.getDescription() %></textarea>
 			</div>
 			<div class="input-group mb-3 row">
 				<label class="input-group-text col-md-2" id="">제조사</label>
 				<input type="text" class="form-control col-md-10" name="manufacturer"
-						value="알로하클래스" >
+						value="<%= product.getManufacturer() %>" >
 			</div>
 			<div class="input-group mb-3 row">
 				<label class="input-group-text col-md-2" id="">분류</label>
 				<input type="text" class="form-control col-md-10" name="category"
-						value="강의" >
+						value="<%= product.getCategory() %>" >
 			</div>
 			<div class="input-group mb-3 row">
 				<label class="input-group-text col-md-2" id="">재고 수</label>
 				<input type="number" class="form-control col-md-10" name="unitsInStock"
-						value="97" >
+						value="<%= product.getUnitsInStock() %>" >
 			</div>
 			<div class="input-group mb-3 row">
 				<div class="col-md-2 p-0">

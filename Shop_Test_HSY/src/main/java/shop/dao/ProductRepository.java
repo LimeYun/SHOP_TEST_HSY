@@ -22,7 +22,7 @@ public class ProductRepository extends JDBConnection {
 		try {
 			psmt = con.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				product = new Product();
 				product.setProductId(rs.getString("product_id"));
 				product.setName(rs.getString("name"));
@@ -33,6 +33,7 @@ public class ProductRepository extends JDBConnection {
 				product.setUnitsInStock(rs.getLong("units_in_stock"));
 				product.setCondition(rs.getString("condition"));
 				product.setFile(rs.getString("file"));
+				productList.add(product);
 			}
 		} catch (SQLException e) {
 			System.err.println("상품 리스트 조회 예외 발생");
@@ -64,8 +65,12 @@ public class ProductRepository extends JDBConnection {
 		Product product = null;
 		try {
 			psmt = con.prepareStatement(sql);
+			psmt.setString(1, keyword);
+			psmt.setString(2, keyword);
+			psmt.setString(3, keyword);
+			psmt.setString(4, keyword);
 			rs = psmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				product = new Product();
 				product.setProductId(rs.getString("product_id"));
 				product.setName(rs.getString("name"));
@@ -76,6 +81,7 @@ public class ProductRepository extends JDBConnection {
 				product.setUnitsInStock(rs.getLong("units_in_stock"));
 				product.setCondition(rs.getString("condition"));
 				product.setFile(rs.getString("file"));
+				productList.add(product);
 			}
 		} catch (SQLException e) {
 			System.err.println("상품 검색 예외 발생");
